@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ondřej Brunn — Physicist | Electron Beam Lithography</title>
+    <meta name="description" content="Researcher at Institute of Scientific Instruments CAS. Double PhD in Physics. I shoot electrons at things.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍌</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --black: #0a0a0a;
+            --dark: #141414;
+            --dark2: #1a1a1a;
+            --red: #ff2d2d;
+            --yellow: #e6ff00;
+            --white: #f5f5f5;
+            --gray: #777;
+            --gray-dim: #444;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 15% 10%, rgba(255,45,45,0.12) 0%, transparent 45%),
+                radial-gradient(ellipse at 85% 90%, rgba(230,255,0,0.08) 0%, transparent 45%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 3rem 0 2rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--white) 0%, var(--yellow) 60%, var(--red) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--yellow);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .tagline::before {
+            content: '> ';
+            color: var(--red);
+        }
+
+        /* Hero image */
+        .hero-image {
+            margin: 2rem auto;
+            max-width: 550px;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            border: 1px solid var(--gray-dim);
+            transition: all 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            border-color: var(--yellow);
+            box-shadow: 0 16px 48px rgba(230,255,0,0.15);
+        }
+
+        /* Section titles */
+        .section-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--gray);
+            margin: 3rem 0 1.25rem;
+            padding-left: 0.75rem;
+            border-left: 3px solid var(--red);
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Card */
+        .card {
+            background: linear-gradient(160deg, var(--dark2) 0%, var(--dark) 100%);
+            border-radius: 16px;
+            padding: 1.25rem;
+            border: 1px solid #222;
+            text-decoration: none;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--red), var(--yellow));
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--red);
+            box-shadow: 0 12px 32px rgba(255,45,45,0.15);
+        }
+
+        .card:hover::after { opacity: 1; }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.25rem;
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .card p {
+            font-size: 0.8rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        .card .tag {
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-top: auto;
+            width: fit-content;
+            background: rgba(230,255,0,0.1);
+            color: var(--yellow);
+        }
+
+        .card .tag.red {
+            background: rgba(255,45,45,0.12);
+            color: var(--red);
+        }
+
+        .card.wide { grid-column: span 2; }
+        @media (max-width: 600px) { .card.wide { grid-column: span 1; } }
+
+        /* PhD Block */
+        .phd-block {
+            background: linear-gradient(160deg, #12120a 0%, var(--dark) 100%);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid #2a2a00;
+            margin-top: 1rem;
+        }
+
+        .phd-block h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--yellow);
+        }
+
+        .phd-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(0,0,0,0.25);
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        .phd-item:last-child { margin-bottom: 0; }
+
+        .phd-item .flag { font-size: 1.5rem; line-height: 1; }
+
+        .phd-item .country {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .phd-item .info {
+            font-size: 0.78rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        .phd-item a {
+            color: var(--yellow);
+            text-decoration: none;
+        }
+
+        .phd-item a:hover { text-decoration: underline; }
+
+        /* Pills */
+        .pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            background: var(--dark);
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--white);
+            font-size: 0.85rem;
+            border: 1px solid #2a2a2a;
+            transition: all 0.2s ease;
+        }
+
+        .pill:hover {
+            background: var(--red);
+            border-color: var(--red);
+            transform: scale(1.03);
+        }
+
+        .pill.yellow:hover {
+            background: var(--yellow);
+            border-color: var(--yellow);
+            color: var(--black);
+        }
+
+        .pill svg, .pill img {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Sports tags */
+        .sport-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.75rem;
+        }
+
+        .sport-tag {
+            font-size: 0.7rem;
+            padding: 0.3rem 0.6rem;
+            background: rgba(255,255,255,0.04);
+            border-radius: 20px;
+            color: var(--gray);
+            border: 1px solid #2a2a2a;
+        }
+
+        .sport-tag.high { border-color: var(--yellow); color: var(--yellow); }
+        .sport-tag.mid { border-color: var(--red); color: var(--red); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            border-top: 1px solid #1a1a1a;
+            margin-top: 3rem;
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        footer .loc { color: var(--yellow); }
+
+        ::selection { background: var(--red); color: var(--white); }
+
+        @media (max-width: 600px) {
+            .container { padding: 1rem; }
+            .grid { grid-template-columns: 1fr; }
+            .phd-item { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ondřej Brunn</h1>
+            <p class="tagline">I shoot electrons at things</p>
+            <div class="hero-image">
+                <img src="nanobanana.jpg" alt="Nanobanana Pro">
+            </div>
+        </header>
+
+        <!-- PROFESSIONAL -->
+        <p class="section-title">Professional</p>
+        <div class="grid">
+            <a href="https://www.isibrno.cz/en" target="_blank" rel="noopener" class="card">
+                <div class="card-header">
+                    <div class="card-logo" style="background:#003d7a;">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3>Institute of Scientific Instruments</h3>
+                </div>
+                <p>Czech Academy of Sciences, Brno</p>
+                <span class="tag">Current</span>
+            </a>
+            <a href="https://www.isibrno.cz/en/electron-beam-lithography" target="_blank" rel="noopener" class="card">
+                <div class="card-header">
+                    <div class="card-logo" style="background:var(--yellow);">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#000" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </div>
+                    <h3>Electron Beam Lithography</h3>
+                </div>
+                <p>Research group</p>
+                <span class="tag red">Research</span>
+            </a>
+        </div>
+
+        <!-- PhD -->
+        <div class="phd-block">
+            <h3>🎓 Double PhD (Co-tutelle)</h3>
+            <div class="phd-item">
+                <span class="flag">🇨🇿</span>
+                <div>
+                    <p class="country">Czechia</p>
+                    <p class="info">ISI CAS, Electron Beam Lithography<br>Supervisor: doc. Vladimír Kolařík<br>Formally under <a href="https://physics.fme.vutbr.cz/en/" target="_blank">VUT Brno</a></p>
+                </div>
+            </div>
+            <div class="phd-item">
+                <span class="flag">🇫🇷</span>
+                <div>
+                    <p class="country">France</p>
+                    <p class="info"><a href="https://neel.cnrs.fr/equipes-poles-et-services/micro-et-nanomagnetisme-mnm" target="_blank">Institut Néel</a>, Micro & Nanomagnetism<br>Supervisor: Dr. Nicolas Rougemaille<br>Formally under <a href="https://www.univ-grenoble-alpes.fr/" target="_blank">UGA</a> <img src="uga.png" alt="UGA" style="height:16px;vertical-align:middle;margin-left:4px;"></p>
+                </div>
+            </div>
+            <div class="phd-item">
+                <span class="flag">💶</span>
+                <div>
+                    <p class="country">Funding</p>
+                    <p class="info"><a href="https://www.ifp.cz/cz/homepage/article22-barrande-fellowship-programme" target="_blank">Barrande Fellowship Programme</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDUCATION -->
+        <p class="section-title">Education</p>
+        <div class="grid">
+            <a href="https://physics.fme.vutbr.cz/en/" target="_blank" rel="noopener" class="card">
+                <div class="card-header">
+                    <div class="card-logo" style="background:#e4002b;">
+                        <span style="font-weight:700;color:#fff;font-size:0.7rem;">VUT</span>
+                    </div>
+                    <h3>VUT Brno</h3>
+                </div>
+                <p>Institute of Physical Engineering — Bc. Mgr. PhD.</p>
+                <span class="tag">Alma Mater</span>
+            </a>
+            <a href="https://neel.cnrs.fr/equipes-poles-et-services/micro-et-nanomagnetisme-mnm" target="_blank" rel="noopener" class="card">
+                <div class="card-header">
+                    <div class="card-logo" style="background:#fff;padding:2px;">
+                        <img src="neel.png" alt="Institut Néel" style="width:100%;height:100%;object-fit:contain;border-radius:6px;">
+                    </div>
+                    <h3>Institut Néel, CNRS</h3>
+                </div>
+                <p>Micro & Nanomagnetism — ERASMUS + PhD</p>
+                <span class="tag red">France</span>
+            </a>
+        </div>
+
+        <!-- VOLUNTEER -->
+        <p class="section-title">Volunteer & Leadership</p>
+        <div class="grid">
+            <a href="https://www.vzs-brno.cz/" target="_blank" rel="noopener" class="card wide">
+                <div class="card-header">
+                    <div class="card-logo" style="background:#fff;padding:2px;">
+                        <img src="vzsbm.png" alt="VZS" style="width:100%;height:100%;object-fit:contain;border-radius:6px;">
+                    </div>
+                    <h3>Water Rescue Service Brno</h3>
+                </div>
+                <p>Ex-PR, ex-grant officer, ex-chief, youth instructor, lifeguard instructor, boat driving instructor. Certified first aid trainer, lifeguard, AED/CPR provider.</p>
+                <span class="tag red">VZS Brno-město</span>
+            </a>
+            <a href="https://www.gpmoravie.cz/" target="_blank" rel="noopener" class="card">
+                <div class="card-header">
+                    <div class="card-logo" style="background:var(--yellow);">
+                        <span style="font-size:1.1rem;">🏆</span>
+                    </div>
+                    <h3>Grand Prix Moravie</h3>
+                </div>
+                <p>International lifesaving competition — former Executive Director</p>
+                <span class="tag">Leadership</span>
+            </a>
+        </div>
+
+        <!-- SOCIAL -->
+        <p class="section-title">Social</p>
+        <div class="pills">
+            <a href="https://x.com/BrunnOndrej" target="_blank" rel="noopener" class="pill">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                Twitter/X
+            </a>
+            <a href="https://bsky.app/profile/thesampleguy.bsky.social" target="_blank" rel="noopener" class="pill yellow">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm-2-8a1 1 0 100-2 1 1 0 000 2z"/></svg>
+                Bluesky
+            </a>
+            <a href="https://mastodon.social/@brunn_ondrej_isi_brno" target="_blank" rel="noopener" class="pill">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M21.327 8.566c0-4.339-2.843-5.61-2.843-5.61-1.433-.658-3.894-.935-6.451-.956h-.063c-2.557.021-5.016.298-6.45.956 0 0-2.843 1.272-2.843 5.61 0 .993-.019 2.181.012 3.441.103 4.243.778 8.425 4.701 9.463 1.809.479 3.362.579 4.612.51 2.268-.126 3.541-.809 3.541-.809l-.075-1.646s-1.621.511-3.441.449c-1.804-.062-3.707-.194-3.999-2.409a4.523 4.523 0 01-.04-.621s1.77.433 4.014.536c1.372.063 2.658-.08 3.965-.236 2.506-.299 4.688-1.843 4.962-3.254.434-2.223.398-5.424.398-5.424zm-3.353 5.59h-2.081V9.057c0-1.075-.452-1.62-1.357-1.62-1 0-1.501.647-1.501 1.927v2.791h-2.069V9.364c0-1.28-.501-1.927-1.502-1.927-.905 0-1.357.546-1.357 1.62v5.099H6.026V8.903c0-1.074.273-1.927.823-2.558.566-.631 1.307-.955 2.228-.955 1.065 0 1.872.41 2.405 1.228l.518.869.519-.869c.533-.818 1.34-1.228 2.405-1.228.92 0 1.662.324 2.228.955.549.631.822 1.484.822 2.558v5.253z"/></svg>
+                Mastodon
+            </a>
+            <a href="https://www.linkedin.com/in/ondrejbrunn/" target="_blank" rel="noopener" class="pill">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+            </a>
+        </div>
+
+        <!-- ACADEMIC -->
+        <p class="section-title">Academic Profiles</p>
+        <div class="pills">
+            <a href="https://www.researchgate.net/profile/Ondrej-Brunn" target="_blank" rel="noopener" class="pill">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#00CCBB"><path d="M19.586 0c-.818 0-1.508.19-2.073.565-.563.377-.97.936-1.213 1.68a3.193 3.193 0 00-.112.437 8.365 8.365 0 00-.078.53 9 9 0 00-.05.727c-.01.282-.013.621-.013 1.016a31.121 31.123 0 00.014 1.017 9 9 0 00.05.727 7.946 7.946 0 00.078.53h-.005a3.334 3.334 0 00.112.438c.244.743.65 1.303 1.214 1.68.565.376 1.256.564 2.075.564.8 0 1.536-.213 2.105-.603.57-.39.94-.916 1.175-1.65.076-.235.135-.558.177-.93a10.9 10.9 0 00.043-1.207v-.82c0-.095-.047-.142-.14-.142h-3.064c-.094 0-.14.047-.14.141v.956c0 .094.046.14.14.14h1.666c.056 0 .084.03.084.086 0 .36 0 .62-.036.865-.038.244-.1.447-.147.606-.108.335-.311.622-.603.876-.293.253-.677.39-1.153.39-.422 0-.787-.11-1.095-.333a2.14 2.14 0 01-.71-.903c-.146-.36-.22-.766-.247-1.22-.03-.452-.043-.953-.043-1.503s.013-1.052.042-1.504c.028-.453.102-.86.248-1.22.145-.36.402-.681.71-.903.308-.222.673-.333 1.095-.333.422 0 .787.11 1.095.333.307.222.565.543.71.903.146.36.22.767.247 1.22.03.452.042.953.042 1.504v.82c0 .095.047.142.14.142h1.167c.093 0 .14-.047.14-.142v-.82c0-.452-.014-.903-.043-1.354a6.64 6.64 0 00-.177-1.22c-.077-.393-.193-.76-.35-1.1a3.652 3.652 0 00-.608-1.035 3.15 3.15 0 00-.963-.773A3.53 3.53 0 0019.586 0zM4.987 10.605c-.052 0-.078.037-.078.112v10.09c0 .074.026.11.078.11h1.167c.052 0 .078-.036.078-.11v-3.685h.005l2.917 3.74c.014.028.046.042.084.042h1.473c.056 0 .084-.028.084-.084 0-.018-.01-.037-.022-.056l-2.917-3.73 2.778-3.406a.132.132 0 00.032-.078.063.063 0 00-.065-.065h-1.388c-.037 0-.065.014-.084.042l-2.898 3.592h-.005v-3.52c0-.075-.027-.112-.078-.112H4.987v.108zm4.987 0c-.052 0-.078.037-.078.112v10.09c0 .074.026.11.078.11h1.167c.052 0 .078-.036.078-.11v-10.09c0-.075-.026-.112-.078-.112H9.974z"/></svg>
+                ResearchGate
+            </a>
+            <a href="https://scholar.google.com/citations?user=lqN5MzUAAAAJ&hl=cs&oi=sra" target="_blank" rel="noopener" class="pill yellow">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#4285F4"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 100 14 7 7 0 000-14z"/></svg>
+                Google Scholar
+            </a>
+            <a href="https://orcid.org/0000-0002-6191-4469" target="_blank" rel="noopener" class="pill">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#A6CE39"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 01-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-4.097-3.722h-2.222z"/></svg>
+                ORCID
+            </a>
+            <a href="https://sciprofiles.com/profile/brunnisibrnocz" target="_blank" rel="noopener" class="pill">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#2196F3"><circle cx="12" cy="12" r="10"/></svg>
+                SciProfiles
+            </a>
+            <a href="https://www.scopus.com/authid/detail.uri?authorId=58075715000" target="_blank" rel="noopener" class="pill">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#E9711C"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0z"/></svg>
+                Scopus
+            </a>
+            <a href="https://www.webofscience.com/wos/author/record/4693809" target="_blank" rel="noopener" class="pill">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="#5C53A5"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0z"/></svg>
+                Web of Science
+            </a>
+        </div>
+
+        <!-- HOBBIES -->
+        <p class="section-title">Hobbies & Making</p>
+        <div class="grid">
+            <a href="https://www.printables.com/@rexgrip_3085344" target="_blank" rel="noopener" class="card">
+                <div class="card-header">
+                    <div class="card-logo" style="background:#fa6831;">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M12 2L2 7v10l10 5 10-5V7L12 2z"/></svg>
+                    </div>
+                    <h3>3D Printing</h3>
+                </div>
+                <p>Prusa Core One owner</p>
+                <span class="tag">Printables</span>
+            </a>
+            <a href="https://www.fablabbrno.cz/" target="_blank" rel="noopener" class="card">
+                <div class="card-header">
+                    <div class="card-logo" style="background:#fff;padding:2px;">
+                        <img src="fablab.png" alt="FabLab Brno" style="width:100%;height:100%;object-fit:contain;border-radius:6px;">
+                    </div>
+                    <h3>Laser Engraving</h3>
+                </div>
+                <p>FabLab Brno member</p>
+                <span class="tag red">Making</span>
+            </a>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-logo" style="background:#8B4513;">🪚</div>
+                    <h3>Woodworking</h3>
+                </div>
+                <p>Father-in-law's cellar workshop</p>
+                <span class="tag">DIY</span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-logo" style="background:#228B22;">🌱</div>
+                    <h3>Gardening</h3>
+                </div>
+                <p>Growing things with mum</p>
+                <span class="tag">Nature</span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-logo" style="background:#333;">🎯</div>
+                    <h3>Shooting</h3>
+                </div>
+                <p>Range time with dad</p>
+                <span class="tag red">Precision</span>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-logo" style="background:#1a472a;">📈</div>
+                    <h3>Finance & Investing</h3>
+                </div>
+                <p>Portfolio management</p>
+                <span class="tag">Markets</span>
+            </div>
+        </div>
+
+        <!-- SPORTS -->
+        <p class="section-title">Sports & Tracking</p>
+        <div class="card" style="max-width:500px;">
+            <div class="card-header">
+                <div class="card-logo" style="background:#000;">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                </div>
+                <h3>Garmin Fenix 8</h3>
+            </div>
+            <div class="pills" style="margin:0.5rem 0;">
+                <a href="https://www.strava.com/athletes/23783680" target="_blank" rel="noopener" class="pill">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="#FC4C02"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+                    Strava
+                </a>
+            </div>
+            <div class="sport-tags">
+                <span class="sport-tag high">Floorball Goalie ★★★</span>
+                <span class="sport-tag mid">Squash ★★</span>
+                <span class="sport-tag mid">Badminton ★★</span>
+                <span class="sport-tag">Disc Golf</span>
+                <span class="sport-tag">Padel</span>
+                <span class="sport-tag">SUP</span>
+                <span class="sport-tag">Tennis</span>
+            </div>
+        </div>
+
+        <footer>
+            <p><span class="loc">📍 Brno, Czech Republic</span></p>
+            <p style="margin-top:0.4rem;">Built with electrons & good vibes</p>
+        </footer>
+    </div>
+
+    <script>
+        console.log('%c🍌 Nanobanana Pro says hi!', 'font-size:18px;color:#e6ff00;');
+        console.log('%cLooking for bugs? Only features here.', 'color:#777;');
+    </script>
+</body>
+</html>
